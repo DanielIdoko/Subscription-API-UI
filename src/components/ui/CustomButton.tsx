@@ -1,4 +1,5 @@
 import React, { type ButtonHTMLAttributes } from "react";
+import Spinner from "./Spinner";
 
 const CustomButton = ({
   textValue,
@@ -32,7 +33,7 @@ const CustomButton = ({
       onClick={onClick}
     >
       {leftIcon}
-      {textValue}
+      {disabled ? <Spinner /> : textValue}
       {rightIcon}
     </button>
   );

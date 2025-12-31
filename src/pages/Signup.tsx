@@ -1,12 +1,13 @@
-import React, { use, useState } from "react";
-import type { User } from "../types/types";
+import React, { useState } from "react";
+// import type { User } from "../types/types";
 import PasswordInput from "../components/PasswordInput";
 import CustomButton from "../components/ui/CustomButton";
-import { Link } from "react-router";
+import { Link, Navigate } from "react-router";
 import { authStore } from "../store/authStore";
+import Footer from "../components/ui/Footer";
 
 const Signup = () => {
-  const { isAuthenticated, isLoading, error, register } = authStore();
+  const { isLoading, error, register } = authStore();
 
   const [user, setUser] = useState({
     name: "",
@@ -35,6 +36,10 @@ const Signup = () => {
   ) => {
     e.preventDefault();
     await register(user.name, user.email, user.password);
+  
+    if (!error) {
+      <Navigate to="/" />;
+    }
   };
 
   return (
@@ -93,7 +98,9 @@ const Signup = () => {
           disabled={isLoading}
           type="submit"
         />
-        <p className="text-small text-red-600 text-center py-1">{error && error}</p>
+        <p className="text-small text-red-600 text-center py-1">
+          {error && error}
+        </p>
         <p className="text-text-muted text-x-small text-center">
           Got an account?{" "}
           <Link to="/login" className="link">
@@ -101,6 +108,8 @@ const Signup = () => {
           </Link>
         </p>
       </form>
+
+      <Footer />
     </section>
   );
 };

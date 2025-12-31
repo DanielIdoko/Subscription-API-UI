@@ -58,7 +58,7 @@ export const authStore = create<AuthState>((set, get) => ({
       console.error("Registration failed:", err.response?.data || err.message);
 
       set({
-        error: "An error occured. Please try again.",
+        error: err.response?.data.error || "An error occured. Please try again.",
         isAuthenticated: false,
       });
       return false;
