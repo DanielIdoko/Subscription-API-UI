@@ -1,6 +1,8 @@
-import React, { useState } from "react";
-import { User } from "../types/types";
+import React, { use, useState } from "react";
+import type { User } from "../types/types";
 import PasswordInput from "../components/PasswordInput";
+import CustomButton from "../components/ui/CustomButton";
+import { Link } from "react-router";
 
 const Login = () => {
   const [user, setUser] = useState({
@@ -10,14 +12,22 @@ const Login = () => {
 
   const [passwordVisible, setPasswordVisible] = useState<boolean>(false);
 
+  const handlePasswordVisibilityToggle = () =>
+    setPasswordVisible(!passwordVisible);
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+
+    setUser((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
+
   return (
     <section className="flex flex-col justify-center items-center">
       <div className="w-full relative">
-        <img
-          src="https://th.bing.com/th/id/OIP.0iYVKqROXvsbvvzdHJlziQHaEK?w=279&h=180&c=7&r=0&o=7&dpr=1.5&pid=1.7&rm=3"
-          alt="onboarding image"
-          className="w-full h-60 md:h-50 object-cover rounded-b-3xl"
-        />
+        <div className="w-full h-60 bg-primary"></div>
         <div className="absolute top-[50%] right-[29%] md:right-[42%]">
           <div className="w-full flex flex-col justify-center items-center">
             <a href="/home" className="logo open-sans-font-bold">
@@ -29,19 +39,39 @@ const Login = () => {
           </div>
         </div>
       </div>
-      <form>
-        <label htmlFor="email">Email</label>
+      <form className="w-full md:w-100 p-3 h-full mt-10 md:mt-0 flex flex-col justify-center">
+        <label htmlFor="email" className="login-label">
+          Email
+        </label>
         <input
-          type="email"
-          placeholder="johndoe@gmail.com"
           value={user.email}
+          name="email"
+          type="email"
+          onChange={handleChange}
+          placeholder="johndoe@gmail.com"
+          className="w-full text-dark text-small outline-0 p-1 border-b border-b-dark"
         />
 
-        <label htmlFor="email">Password</label>
+        <label htmlFor="email" className="login-label">
+          Password
+        </label>
         <PasswordInput
+          passwordValue={user.password}
           passwordVisible={passwordVisible}
-          onClick={() => setPasswordVisible(!pass)}
+          onClick={handlePasswordVisibilityToggle}
+          onChange={(e) => setUser({ ...user, password: e.target.value })}
         />
+        <CustomButton
+          textValue="Login"
+          otherStyles="my-5 bg-primary border border-primary hover:bg-transparent hover:text-primary transition ease-in duration-300"
+          disabled={true}
+        />
+        <p className="text-text-muted text-x-small text-center">
+          New User?{" "}
+          <Link to="/signup" className="link">
+            Signup
+          </Link>
+        </p>
       </form>
     </section>
   );

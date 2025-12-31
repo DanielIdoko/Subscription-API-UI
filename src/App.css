@@ -1,12 +1,22 @@
 @import "tailwindcss";
 
 @theme {
+  /* Colors */
   --color-base: #f1f1f1;
   --color-primary: #265bfb;
   --color-secondary: #1e49c8;
   --color-dark: #080808;
   --color-light: #fff;
   --color-text-muted: #878787;
+
+  /* Font sizes */
+  --text-x-small: 11px;
+  --text-small: 14px;
+  --text-medium: 20px;
+  --text-x-medium: 25px;
+  --text-large: 45px;
+  --text-x-large: 75px;
+  --text-xx-large: 95px;
 }
 
 /* p{
@@ -43,9 +53,9 @@
 }
 
 /* MAIN */
-body {
+/* body {
   @apply bg-base;
-}
+} */
 
 .section {
   @apply px-3;
@@ -64,4 +74,15 @@ body {
 }
 
 .not-found-modal {
+}
+
+.icon {
+  @apply cursor-pointer;
+}
+.link {
+  @apply text-primary underline cursor-pointer;
+}
+/* Components */
+.login-label {
+  @apply text-small py-2;
 }

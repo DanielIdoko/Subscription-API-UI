@@ -37,7 +37,7 @@ export const authStore = create<AuthState>((set, get) => ({
   register: async (name, email, password) => {
     try {
       set({ isLoading: true, error: null });
-      const { data } = await api.post("/auth/signup", {
+      const { data } = await api.post("auth/signup", {
         name,
         email,
         password,

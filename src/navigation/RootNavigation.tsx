@@ -30,8 +30,8 @@ const RootNavigation = () => {
           <Route path="/profile" element={<ProfilePage />} />
           <Route path="/finance" element={<FinancePage />} />
         </Route>
-        <Route path="/login" element={<Login />}/>
-        <Route path="/signup" element={<Signup />}/>
+        <Route path="/login" element={<Login />} />
+        <Route path="/signup" element={<Signup />} />
       </Route>
     )
   );
