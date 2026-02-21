@@ -14,18 +14,21 @@ const PasswordInput = ({
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }) => {
   return (
-    <div className="flex items-center gap-2 px-1">
-      {passwordVisible ? (
-        <FaEye onClick={onClick} className="icon"/>
-      ) : (
-        <GoEyeClosed onClick={onClick} className="icon"/>
-      )}
+    <div className="flex items-center gap-2 px-1 cursor-pointer">
       <input
         type={passwordVisible ? "text" : "password"}
         value={passwordValue}
-        className="w-full text-dark text-small outline-0 p-1 border-b border-b-dark"
+        placeholder="Enter your password"
+        className="input-box"
         onChange={onChange}
       />
+      <div className="w-12 h-10 flex justify-center items-center border border-dark rounded-full hover:bg-text-muted/30">
+        {passwordVisible ? (
+          <FaEye onClick={onClick} className="icon"/>
+        ) : (
+          <GoEyeClosed onClick={onClick} className="icon" />
+        )}
+      </div>
     </div>
   );
 };

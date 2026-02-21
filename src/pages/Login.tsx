@@ -1,10 +1,13 @@
-import React, { use, useState } from "react";
-import type { User } from "../types/types";
+import React, { useState } from "react";
 import PasswordInput from "../components/PasswordInput";
 import CustomButton from "../components/ui/CustomButton";
-import { Link } from "react-router";
+import { Link, Navigate } from "react-router";
+import { authStore } from "../store/authStore";
+// import Footer from "../components/ui/Footer";
 
 const Login = () => {
+  const { isLoading, error, login } = authStore();
+
   const [user, setUser] = useState({
     email: "",
     password: "",
@@ -15,6 +18,7 @@ const Login = () => {
   const handlePasswordVisibilityToggle = () =>
     setPasswordVisible(!passwordVisible);
 
+  // Handle Change inputs
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
 
@@ -24,36 +28,49 @@ const Login = () => {
     }));
   };
 
+  // Call the register function from authStore
+  const handleRegisterOnSubmit = async (
+    e: React.FormEvent<HTMLFormElement>,
+  ) => {
+    e.preventDefault();
+    await login(user.email, user.password);
+
+    if (!error) {
+      <Navigate to="/" />;
+    }
+  };
+
   return (
-    <section className="flex flex-col justify-center items-center">
-      <div className="w-full relative">
-        <div className="w-full h-60 bg-primary"></div>
-        <div className="absolute top-[50%] right-[29%] md:right-[42%]">
-          <div className="w-full flex flex-col justify-center items-center">
-            <a href="/home" className="logo open-sans-font-bold">
-              SUBUI
-            </a>
-            <h3 className="text-md md:text-xl text-base">
-              Login in to your account
-            </h3>
-          </div>
-        </div>
+    <section className="h-dvh flex flex-col justify-center items-center">
+      <div className="my-10 mb-8 flex flex-col items-center justify-center">
+        <a href="/" className="inter-font-normal logo">
+          Managel
+        </a>
+        <h2 className="text-xx-medium font-bold text-dark inter-font-normal py-2">
+          Sign In.
+        </h2>
+        <p className="text-text-muted text-x-small md:text-small text-center py-1">
+          Manage your subscriptions and payments seamlessly by signing in.
+        </p>
       </div>
-      <form className="w-full md:w-100 p-3 h-full mt-10 md:mt-0 flex flex-col justify-center">
-        <label htmlFor="email" className="login-label">
-          Email
+      <form
+        className="w-full h-115 md:w-100 p-3 bg-white flex flex-col justify-center rounded-lg"
+        onSubmit={handleRegisterOnSubmit}
+      >
+        <label htmlFor="email" className="inter-font-normal login-label">
+          Email Address*
         </label>
         <input
-          value={user.email}
           name="email"
           type="email"
+          placeholder="Enter your email"
+          value={user.email}
           onChange={handleChange}
-          placeholder="johndoe@gmail.com"
-          className="w-full text-dark text-small outline-0 p-1 border-b border-b-dark"
+          className="input-box"
         />
 
-        <label htmlFor="email" className="login-label">
-          Password
+        <label htmlFor="email" className="inter-font-normal login-label">
+          Password*
         </label>
         <PasswordInput
           passwordValue={user.password}
@@ -63,13 +80,21 @@ const Login = () => {
         />
         <CustomButton
           textValue="Login"
-          otherStyles="my-5 bg-primary border border-primary hover:bg-transparent hover:text-primary transition ease-in duration-300"
-          disabled={true}
+          otherStyles="inter-font-normal mt-6 bg-dark border border-dark hover:bg-transparent hover:text-dark transition ease-in duration-400"
+          disabled={isLoading}
+          type="submit"
         />
-        <p className="text-text-muted text-x-small text-center">
-          New User?{" "}
-          <Link to="/signup" className="link">
-            Signup
+        {error && (
+          <div className="w-full h-13 p-2 rounded-md bg-error my-5 flex justify-center items-center">
+            <p className="text-small text-white inter-font-normal">
+              {error && error}
+            </p>
+          </div>
+        )}
+        <p className="text-text-muted text-small pt-2 text-center">
+          New user?{" "}
+          <Link to="/auth/signup" className="link">
+            Sign up here
           </Link>
         </p>
       </form>

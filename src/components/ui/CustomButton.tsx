@@ -1,5 +1,4 @@
 import React, { type ButtonHTMLAttributes } from "react";
-import Spinner from "./Spinner";
 
 const CustomButton = ({
   textValue,
@@ -19,21 +18,21 @@ const CustomButton = ({
   disabledStyle?: boolean;
   type?: "submit" | "reset" | "button" | undefined;
   onClick?: (
-    e: React.MouseEvent<HTMLButtonElement> | React.FormEvent<HTMLFormElement>
+    e: React.MouseEvent<HTMLButtonElement> | React.FormEvent<HTMLFormElement>,
   ) => void;
 }) => {
   return (
     <button
       className={`
-        bg-dark p-2 rounded-lg text-white text-small ${otherStyles} cursor-pointer
-         ${disabled && "opacity-50 cursor-not-allowed"}
+        bg-dark p-2 rounded-full text-white inter-font-normal text-small ${otherStyles} cursor-pointer flex items-center justify-center
+         ${disabled && "bg-dark/20 border-dark/20 cursor-not-allowed"}
     `}
       disabled={disabled}
       type={type}
       onClick={onClick}
     >
       {leftIcon}
-      {disabled ? <Spinner /> : textValue}
+      {disabled ? ('Loading...') : textValue}
       {rightIcon}
     </button>
   );

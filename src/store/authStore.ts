@@ -17,12 +17,12 @@ type AuthState = {
 
   // Functions
   register: (name: string, email: string, password: string) => Promise<boolean>;
-  //   login: (email: string, password: string) => Promise<boolean>;
+  login: (email: string, password: string) => Promise<boolean>;
   //   logout: () => Promise<void>;
   //   fetchAuthenticatedUser: () => Promise<void>;
 };
 
-export const authStore = create<AuthState>((set, get) => ({
+export const authStore = create<AuthState>((set) => ({
   isAuthenticated: false,
   user: null,
   isLoading: false,
@@ -58,7 +58,40 @@ export const authStore = create<AuthState>((set, get) => ({
       console.error("Registration failed:", err.response?.data || err.message);
 
       set({
-        error: err.response?.data.error || "An error occured. Please try again.",
+        error:
+          err.response?.data.error || "An error occured. Please try again.",
+        isAuthenticated: false,
+      });
+      return false;
+    } finally {
+      set({ isLoading: false });
+    }
+  },
+  login: async (email, password) => {
+    try {
+      set({ isLoading: true, error: null });
+      const { data } = await api.post("auth/login", {
+        email,
+        password,
+      });
+
+      // Check for token to verify user logged in
+      if (data.data?.token) {
+        set({
+          isAuthenticated: true,
+          user: data.data.user,
+        });
+        console.log(data);
+        return true;
+      }
+
+      return false;
+    } catch (err: any) {
+      console.error("Login failed:", err.response?.data || err.message);
+
+      set({
+        error:
+          err.response?.data.error || "An error occured. Please try again.",
         isAuthenticated: false,
       });
       return false;

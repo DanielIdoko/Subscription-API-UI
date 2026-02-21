@@ -32,59 +32,56 @@ const Signup = () => {
 
   // Call the register function from authStore
   const handleRegisterOnSubmit = async (
-    e: React.FormEvent<HTMLFormElement>
+    e: React.FormEvent<HTMLFormElement>,
   ) => {
     e.preventDefault();
     await register(user.name, user.email, user.password);
-  
+
     if (!error) {
       <Navigate to="/" />;
     }
   };
 
   return (
-    <section className="flex flex-col justify-center items-center">
-      <div className="w-full relative">
-        <div className="w-full h-60 bg-primary"></div>
-        <div className="absolute top-[50%] right-[22%] md:right-[41%]">
-          <div className="w-full flex flex-col justify-center items-center">
-            <a href="/home" className="logo open-sans-font-bold">
-              SUBUI
-            </a>
-            <h3 className="text-5xl text-base">Get Started</h3>
-          </div>
-        </div>
+    <section className="h-dvh flex flex-col justify-center items-center">
+      <div className="my-10 mb-8 flex flex-col items-center justify-center">
+        <a href="/" className="inter-font-normal logo">
+          Managel
+        </a>
+        <h2 className="text-xx-medium font-bold text-dark inter-font-normal py-2">
+          Create your account.
+        </h2>
       </div>
       <form
-        className="w-full md:w-100 p-3 h-full flex flex-col justify-center"
+        className="w-full h-115 md:w-100 p-3 bg-white my-8 flex flex-col justify-center rounded-lg"
         onSubmit={handleRegisterOnSubmit}
       >
-        <label htmlFor="email" className="login-label">
-          Name
+        <label htmlFor="email" className="inter-font-normal login-label">
+          Full name*
         </label>
         <input
           name="name"
           type="text"
-          placeholder="John doe"
+          placeholder="Enter your name"
           value={user.name}
           onChange={handleChange}
-          className="w-full text-dark text-small outline-0 p-1 border-b border-b-dark"
+          className="input-box"
         />
 
-        <label htmlFor="email" className="login-label">
-          Email
+        <label htmlFor="email" className="inter-font-normal login-label">
+          Email Address*
         </label>
         <input
           name="email"
           type="email"
-          placeholder="johndoe@gmail.com"
+          placeholder="Enter your email"
           value={user.email}
           onChange={handleChange}
-          className="w-full text-dark text-small outline-0 p-1 border-b border-b-dark"
+          className="input-box"
         />
 
-        <label htmlFor="email" className="login-label">
-          Password
+        <label htmlFor="email" className="inter-font-normal login-label">
+          Password*
         </label>
         <PasswordInput
           passwordValue={user.password}
@@ -93,23 +90,25 @@ const Signup = () => {
           onChange={(e) => setUser({ ...user, password: e.target.value })}
         />
         <CustomButton
-          textValue="Get started"
-          otherStyles="my-5 bg-primary border border-primary hover:bg-transparent hover:text-primary transition ease-in duration-300"
+          textValue="Create your Managel account"
+          otherStyles="inter-font-normal mt-6 bg-dark border border-dark hover:bg-transparent hover:text-dark transition ease-in duration-400"
           disabled={isLoading}
           type="submit"
         />
-        <p className="text-small text-red-600 text-center py-1">
-          {error && error}
-        </p>
-        <p className="text-text-muted text-x-small text-center">
+        {error && (
+          <div className="w-full h-13 p-2 rounded-md bg-error my-5 flex justify-center items-center">
+            <p className="text-small text-white inter-font-normal">
+              {error && error}
+            </p>
+          </div>
+        )}
+        <p className="text-text-muted text-small text-center">
           Got an account?{" "}
-          <Link to="/login" className="link">
+          <Link to="/auth/login" className="link">
             Login
           </Link>
         </p>
       </form>
-
-      <Footer />
     </section>
   );
 };

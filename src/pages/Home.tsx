@@ -2,8 +2,9 @@ import React from "react";
 
 const Home = () => {
   return (
-    <div>
-    </div>
+    <section className="h-full px-3 py-7 bg-base">
+     Home 
+    </section>
   );
 };
 
