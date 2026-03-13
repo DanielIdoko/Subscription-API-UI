@@ -45,10 +45,10 @@ const Signup = () => {
   return (
     <section className="h-dvh flex flex-col justify-center items-center">
       <div className="my-10 mb-8 flex flex-col items-center justify-center">
-        <a href="/" className="inter-font-normal logo">
+        <a href="/" className="font-inter logo">
           Managel
         </a>
-        <h2 className="text-xx-medium font-bold text-dark inter-font-normal py-2">
+        <h2 className="text-xx-medium font-bold text-dark font-inter py-2">
           Create your account.
         </h2>
       </div>
@@ -56,7 +56,7 @@ const Signup = () => {
         className="w-full h-115 md:w-100 p-3 bg-white my-8 flex flex-col justify-center rounded-lg"
         onSubmit={handleRegisterOnSubmit}
       >
-        <label htmlFor="email" className="inter-font-normal login-label">
+        <label htmlFor="email" className="font-inter login-label">
           Full name*
         </label>
         <input
@@ -68,7 +68,7 @@ const Signup = () => {
           className="input-box"
         />
 
-        <label htmlFor="email" className="inter-font-normal login-label">
+        <label htmlFor="email" className="font-inter login-label">
           Email Address*
         </label>
         <input
@@ -80,7 +80,7 @@ const Signup = () => {
           className="input-box"
         />
 
-        <label htmlFor="email" className="inter-font-normal login-label">
+        <label htmlFor="email" className="font-inter login-label">
           Password*
         </label>
         <PasswordInput
@@ -91,13 +91,13 @@ const Signup = () => {
         />
         <CustomButton
           textValue="Create your Managel account"
-          otherStyles="inter-font-normal mt-6 bg-dark border border-dark hover:bg-transparent hover:text-dark transition ease-in duration-400"
+          otherStyles="font-inter mt-6 bg-dark border border-dark hover:bg-transparent hover:text-dark transition ease-in duration-400"
           disabled={isLoading}
           type="submit"
         />
         {error && (
           <div className="w-full h-13 p-2 rounded-md bg-error my-5 flex justify-center items-center">
-            <p className="text-small text-white inter-font-normal">
+            <p className="text-small text-white font-inter">
               {error && error}
             </p>
           </div>

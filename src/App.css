@@ -1,8 +1,9 @@
 @import "tailwindcss";
+@import url("https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Poppins:wght@300;400;500;600;700&family=Fira+Code:wght@400;500;600;700&display=swap");
 
 @theme {
   /* Colors */
-  --color-base: #f1f1f1;
+  --color-base: #f4f4f4;
   --color-primary: #0a0909;
   --color-secondary: #1e49c8;
   --color-dark: #080808;
@@ -15,29 +16,55 @@
   --color-inputBackground: #ffffff;
   --color-inputBorder: #d1d5db;
   --color-inputError: #ef4444;
+  --color-card: #f2f2f2;
 
   /* Font sizes */
   --text-x-small: 11px;
   --text-small: 14px;
   --text-medium: 20px;
+  --text-small-medium: 17px;
   --text-x-medium: 25px;
   --text-xx-medium: 30px;
   --text-large: 45px;
   --text-x-large: 75px;
   --text-xx-large: 95px;
+
+  /* Fonts */
+  --font-open-sans: "Open Sans", sans-serif;
+  --font-inter: "Inter", sans-serif;
 }
 
 /* p {
-  color: #1e48c828;
+  color: #fb7610;
   color: #0a0909;
 } */
 
 .logo {
-  @apply text-medium text-primary;
+  @apply text-small text-primary flex-1 font-inter;
+}
+
+.sidebar-icon{
+  @apply text-primary rounded p-2 flex items-center justify-center cursor-pointer
 }
 
 .home-page {
   @apply bg-base w-full h-full;
+}
+
+.info-text{
+  @apply text-dark text-small font-inter
+}
+
+.sidebar{
+  @apply h-full p-3 py-4 flex flex-col bg-white text-white border-r border-r-[#17161628] transition duration-300 ease-in-out
+}
+
+.action-btn{
+  @apply p-2 px-3 text-x-small text-white flex items-center justify-center gap-2 bg-primary rounded-full font-inter cursor-pointer hover:bg-dark/80
+}
+
+.heading{
+  @apply text-small-medium font-inter font-semibold text-dark
 }
 
 /* FONTS */
@@ -56,7 +83,7 @@
   font-variation-settings: "wdth" 100;
 }
 
-.inter-font-normal {
+.font-inter {
   font-family: "Inter", sans-serif;
   font-optical-sizing: auto;
   font-weight: 500;
@@ -130,3 +157,4 @@
 .input-box {
   @apply w-full h-10 text-dark text-small outline-0 p-2 rounded-full border border-dark;
 }
+

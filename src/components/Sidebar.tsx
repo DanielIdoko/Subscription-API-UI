@@ -6,6 +6,7 @@ import {
   FiHome,
   FiLogOut,
   FiSettings,
+  FiSidebar,
   FiUser,
 } from "react-icons/fi";
 import { AiOutlineArrowLeft, AiOutlineArrowRight } from "react-icons/ai";
@@ -47,41 +48,40 @@ const Sidebar = () => {
   const [sidebarOpen, setSidebarOpen] = useState<boolean>(true);
 
   return (
-    <aside
-      className="h-full p-3 py-4 flex flex-col bg-white transition duration-300 ease-in-out"
-      style={{
-        width: sidebarOpen ? 300 + "px" : 80 + "px",
-      }}
-    >
-      <div className="w-full p-2 px-3 flex">
-        <a href="/" className="inter-font-normal logo flex-1">
+    <aside className={`sidebar ${sidebarOpen ? "w-75" : "w-20"}`}>
+      <div className="w-full p-2 px-3 flex items-center">
+        <a href="/" className="logo">
           {sidebarOpen && "Managel"}
         </a>
-        {sidebarOpen ? (
-          <span
-            className="bg-base rounded-lg p-2 flex items-center justify-center cursor-pointer"
-            onClick={() => setSidebarOpen(!sidebarOpen)}
-          >
-            <AiOutlineArrowLeft />
-          </span>
-        ) : (
-          <span
-            className="bg-base rounded-lg p-2 flex items-center justify-center cursor-pointer"
-            onClick={() => setSidebarOpen(!sidebarOpen)}
-          >
-            <AiOutlineArrowRight />
-          </span>
-        )}
+        {/* {sidebarOpen ? ( */}
+        <span
+          className="sidebar-icon"
+          onClick={() => setSidebarOpen(!sidebarOpen)}
+        >
+          <FiSidebar />
+        </span>
+        {/* // ) : ( */}
+        {/* //   <span */}
+        {/* //     className="sidebar-icon" */}
+        {/* //     onClick={() => setSidebarOpen(!sidebarOpen)} */}
+        {/* //   > */}
+        {/* //     <AiOutlineArrowRight /> */}
+        {/* //   </span> */}
+        {/* // )} */}
       </div>
       <nav className="h-full p-2 flex flex-col gap-4">
         {sidebarData.map((data: any) => (
           <NavLink
+            key={data.id}
             to={data.path}
-            className="flex gap-2 items-center p-2 rounded-lg inter-font-normal text-small text-dark"
+            className="flex gap-2 items-center p-2 rounded-full text-small text-dark"
             style={({ isActive }) => ({
-              color: isActive ? "#1e49c8" : "#a8a8a8",
+              color: isActive ? "#121212" : "#a8a8a8",
               justifyContent: !sidebarOpen && "center",
-              backgroundColor: isActive ? "#1e48c828" : "",
+              backgroundColor: isActive && "#7f7f7f28",
+              fontWeight: isActive && "bold",
+              borderWidth: isActive && 1,
+              borderColor: isActive && "#17161628",
             })}
           >
             {data.icon}
@@ -89,7 +89,12 @@ const Sidebar = () => {
           </NavLink>
         ))}
       </nav>
-      <button className="flex gap-1 items-center justify-center px-3 py-2 text-error font-bold text-small cursor-pointer hover:bg-red-100 rounded-lg transition duration-400">
+      <button
+        className="flex gap-2 items-center px-3 py-2 text-error font-bold text-small cursor-pointer hover:bg-red-100 rounded-full transition duration-400"
+        style={{
+          justifyContent: !sidebarOpen && "center",
+        }}
+      >
         {sidebarOpen ? (
           <>
             <FiLogOut /> Logout

@@ -24,7 +24,7 @@ const CustomButton = ({
   return (
     <button
       className={`
-        bg-dark p-2 rounded-full text-white inter-font-normal text-small ${otherStyles} cursor-pointer flex items-center justify-center
+        bg-dark p-2 rounded-full text-white font-inter text-small ${otherStyles} cursor-pointer flex items-center justify-center
          ${disabled && "bg-dark/20 border-dark/20 cursor-not-allowed"}
     `}
       disabled={disabled}
