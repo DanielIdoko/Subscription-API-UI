@@ -1,102 +1,98 @@
 import { create } from "zustand";
+import { persist } from "zustand/middleware";
 import type { User } from "../types/types";
-import api from "../utils/api";
+import authAPI from "../services/api/auth.api";
 
-// Auth state type
-type AuthState = {
-  isAuthenticated: boolean;
+
+interface AuthState {
   user: User | null;
+  token: string | null;
   isLoading: boolean;
   error: string | null;
 
   // Actions
-  setIsAuthenticated: (value: boolean) => void;
-  setUser: (user: User | null) => void;
-  setLoading: (loading: boolean) => void;
-  setError: (error: string | null) => void;
+  register: (name: string, email: string, password: string) => Promise<void>;
+  login: (email: string, password: string) => Promise<void>;
+  logout: () => void;
+  fetchCurrentUser: () => Promise<void>;
+  clearError: () => void;
+}
 
-  // Functions
-  register: (name: string, email: string, password: string) => Promise<boolean>;
-  login: (email: string, password: string) => Promise<boolean>;
-  //   logout: () => Promise<void>;
-  //   fetchAuthenticatedUser: () => Promise<void>;
-};
+export const authStore = create<AuthState>()(
+  persist(
+    (set) => ({
+      user: null,
+      token: null,
+      isLoading: false,
+      error: null,
 
-export const authStore = create<AuthState>((set) => ({
-  isAuthenticated: false,
-  user: null,
-  isLoading: false,
-  error: null,
+      register: async (name, email, password) => {
+        try {
+          set({ isLoading: true, error: null });
+          const { data } = await authAPI.register({ name, email, password });
 
-  // Mutators
-  setIsAuthenticated: (value) => set({ isAuthenticated: value }),
+          localStorage.setItem("auth_token", data.data.accessToken);
+          // console.log(data.accessToken);
+          
+          set({
+            user: data.user,
+            token: data.data.accessToken,
+            isLoading: false,
+          });
+        } catch (err: any) {
+          const errorMessage =
+            err.response?.data?.message ||
+            "Registration failed. Please try again";
+          set({ isLoading: false, error: errorMessage });
+          throw err;
+        }
+      },
 
-  setUser: (user) => set({ user }),
-  setLoading: (value) => set({ isLoading: value }),
-  setError: (error) => set({ error }),
-  register: async (name, email, password) => {
-    try {
-      set({ isLoading: true, error: null });
-      const { data } = await api.post("auth/signup", {
-        name,
-        email,
-        password,
-      });
+      login: async (email, password) => {
+        try {
+          set({ isLoading: true, error: null });
+          const { data } = await authAPI.login({ email, password });
 
-      // Check for token to verify user logged in
-      if (data.data?.token) {
-        set({
-          isAuthenticated: true,
-          user: data.data.user,
-        });
-        console.log(data);
-        return true;
-      }
+          // console.log(data);
+          // console.log(data.data.accessToken);
 
-      return false;
-    } catch (err: any) {
-      console.error("Registration failed:", err.response?.data || err.message);
+          localStorage.setItem("auth_token", data.data.accessToken);
+          set({
+            user: data.user,
+            token: data.data.accessToken,
+            isLoading: false,
+          });
+        } catch (err: any) {
+          const errorMessage =
+            err.response?.data?.message || "Login failed. Please try again";
+          set({ isLoading: false, error: errorMessage });
+          throw err;
+        }
+      },
 
-      set({
-        error:
-          err.response?.data.error || "An error occured. Please try again.",
-        isAuthenticated: false,
-      });
-      return false;
-    } finally {
-      set({ isLoading: false });
-    }
-  },
-  login: async (email, password) => {
-    try {
-      set({ isLoading: true, error: null });
-      const { data } = await api.post("auth/login", {
-        email,
-        password,
-      });
+      logout: () => {
+        localStorage.removeItem("auth_token");
+        set({ user: null, token: null, error: null });
+      },
 
-      // Check for token to verify user logged in
-      if (data.data?.token) {
-        set({
-          isAuthenticated: true,
-          user: data.data.user,
-        });
-        console.log(data);
-        return true;
-      }
+      fetchCurrentUser: async () => {
+        try {
+          set({ isLoading: true, error: null });
+          const { data } = await authAPI.getCurrentUser();
+          set({ user: data, isLoading: false });
+        } catch (err: any) {
+          const errorMessage =
+            err.response?.data?.message || "Failed to fetch user. Try again";
+          set({ isLoading: false, error: errorMessage });
+          throw err;
+        }
+      },
 
-      return false;
-    } catch (err: any) {
-      console.error("Login failed:", err.response?.data || err.message);
-
-      set({
-        error:
-          err.response?.data.error || "An error occured. Please try again.",
-        isAuthenticated: false,
-      });
-      return false;
-    } finally {
-      set({ isLoading: false });
-    }
-  },
-}));
+      clearError: () => set({ error: null }),
+    }),
+    {
+      name: "auth-store",
+      partialize: (state) => ({ token: state.token, user: state.user }),
+    },
+  ),
+);

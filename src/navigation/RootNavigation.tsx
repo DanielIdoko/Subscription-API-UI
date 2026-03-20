@@ -1,43 +1,110 @@
-import React, { lazy } from "react";
-import { createRoutesFromElements, Route, RouterProvider } from "react-router";
-import { createBrowserRouter } from "react-router";
-import ProtectedRoute from "../components/ProtectedRoute";
+import React, { lazy, Suspense } from 'react';
+import {
+  createBrowserRouter,
+  createRoutesFromElements,
+  Route,
+  RouterProvider,
+} from 'react-router';
+import { ProtectedRoute } from '../components/ProtectedRoute';
+import { Spinner } from '../components/ui/Spinner';
+import { ToastContainer } from '../components/ToastContainer';
 
-const HomePage = lazy(() => import("../pages/Home"));
-const FinancePage = lazy(() => import("../pages/Finance"));
-const ProfilePage = lazy(() => import("../pages/Profile"));
-const Signup = lazy(() => import("../pages/Signup"));
-const Login = lazy(() => import("../pages/Login"));
-const SubscriptionsPage = lazy(() => import("../pages/Subscriptions"));
-const Settings = lazy(() => import("../pages/Settings"));
-const Notifications = lazy(() => import("../pages/Notifications"));
+// Lazy load pages
+const LoginPage = lazy(() => import('../pages/LoginPage'));
+const SignupPage = lazy(() => import('../pages/SignupPage'));
+const DashboardPage = lazy(() => import('../pages/DashboardPage'));
+const SubscriptionsPage = lazy(() => import('../pages/SubscriptionsPage'));
+const AnalyticsPage = lazy(() => import('../pages/AnalyticsPage'));
+const ProfilePage = lazy(() => import('../pages/ProfilePage'));
+const SettingsPage = lazy(() => import('../pages/SettingsPage'));
+const NotificationPage = lazy(() => import('../pages/NotificationPage'));
 
-// From authstore
-import { authStore } from "../store/authStore";
+const LoadingFallback = () => (
+  <div className="min-h-screen flex items-center justify-center bg-gray-50">
+    <Spinner size="lg" />
+  </div>
+);
 
-const RootNavigation = () => {
-  const { user } = authStore();
+const router = createBrowserRouter(
+  createRoutesFromElements(
+    <Route>
+      {/* Auth Routes */}
+      <Route path="/auth/login" element={<LoginPage />} />
+      <Route path="/auth/signup" element={<SignupPage />} />
 
-  const router = createBrowserRouter(
-    createRoutesFromElements(
-      <Route>
-        <Route element={<ProtectedRoute isAuthenticated={user} />}>
-          <Route index element={<HomePage />} />
-          <Route path="/user/subscriptions" element={<SubscriptionsPage />} />
-          <Route path="/user/profile/:user_id" element={<ProfilePage />} />
-          <Route path="/user/finance" element={<FinancePage />} />
-          <Route path="/user/settings" element={<Settings />} />
-          <Route
-            path="/user/notifications/:user_id"
-            element={<Notifications />}
-          />
-        </Route>
-        <Route path="/auth/login" element={<Login />} />
-        <Route path="/auth/signup" element={<Signup />} />
-      </Route>,
-    ),
+      {/* Protected Routes */}
+      <Route element={<ProtectedRoute />}>
+        <Route
+          path="/dashboard"
+          element={
+            <Suspense fallback={<LoadingFallback />}>
+              <DashboardPage />
+            </Suspense>
+          }
+        />
+        <Route
+          path="/subscriptions"
+          element={
+            <Suspense fallback={<LoadingFallback />}>
+              <SubscriptionsPage />
+            </Suspense>
+          }
+        />
+        <Route
+          path="/analytics"
+          element={
+            <Suspense fallback={<LoadingFallback />}>
+              <AnalyticsPage />
+            </Suspense>
+          }
+        />
+        <Route
+          path="/profile"
+          element={
+            <Suspense fallback={<LoadingFallback />}>
+              <ProfilePage />
+            </Suspense>
+          }
+        />
+        <Route
+          path="/settings"
+          element={
+            <Suspense fallback={<LoadingFallback />}>
+              <SettingsPage />
+            </Suspense>
+          }
+        />
+        <Route
+          path="/notifications"
+          element={
+            <Suspense fallback={<LoadingFallback />}>
+              <NotificationPage />
+            </Suspense>
+          }
+        />
+      </Route>
+
+      {/* Redirect root to dashboard */}
+      <Route path="/" element={<ProtectedRoute />}>
+        <Route
+          index
+          element={
+            <Suspense fallback={<LoadingFallback />}>
+              <DashboardPage />
+            </Suspense>
+          }
+        />
+      </Route>
+    </Route>
+  )
+);
+
+export const RootNavigation: React.FC = () => {
+  return (
+    <ToastContainer>
+      <RouterProvider router={router} />
+    </ToastContainer>
   );
-  return <RouterProvider router={router} />;
 };
 
 export default RootNavigation;
