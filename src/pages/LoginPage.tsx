@@ -11,6 +11,7 @@ import { Input } from "../components/ui/Input";
 import { Button } from "../components/ui/Button";
 import { authStore } from "../store/authStore";
 import { useToast } from "../hooks/useToast";
+import { FaArrowRight } from "react-icons/fa";
 
 export const LoginPage: React.FC = () => {
   const navigate = useNavigate();
