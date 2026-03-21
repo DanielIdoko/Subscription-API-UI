@@ -80,21 +80,21 @@ export const DashboardPage: React.FC = () => {
           <StatsCard
             icon={<FiAlertCircle />}
             label="Categories"
-            value={stats?.categoryBreakdown.length || 0}
+            value={stats?.categoryBreakdown?.length || 0}
             change="Well organized"
             changeType="positive"
           />
         </div>
 
         {/* Category Breakdown */}
-        {stats && stats.categoryBreakdown?.length > 0 && (
+        {stats && stats?.categoryBreakdown?.length! > 0 && (
           <Card>
             <CardHeader>
               <CardTitle>Spending by Category</CardTitle>
             </CardHeader>
             <CardContent>
               <div className="space-y-4">
-                {stats.categoryBreakdown.map((category) => (
+                {stats.categoryBreakdown?.map((category) => (
                   <div
                     key={category.category}
                     className="flex items-center justify-between"

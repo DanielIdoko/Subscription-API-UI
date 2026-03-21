@@ -3,7 +3,7 @@ import { DashboardLayout } from '../components/DashboardLayout';
 import { Card, CardContent, CardHeader, CardTitle } from '../components/ui/Card';
 import { Spinner } from '../components/ui/Spinner';
 import { analyticsStore } from '../store/analyticsStore';
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, ResponsiveContainer } from 'recharts';
 
 export const AnalyticsPage: React.FC = () => {
   const { monthlyData, isLoading, fetchMonthlyData } = analyticsStore();
