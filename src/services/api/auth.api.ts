@@ -12,7 +12,9 @@ export interface LoginPayload {
 }
 
 export interface AuthResponse {
-  token: string;
+  data: {
+    accessToken: string;
+  };
   user: {
     _id: string;
     name: string;
@@ -24,6 +26,11 @@ export interface UserResponse {
   _id: string;
   name: string;
   email: string;
+  createdAt?: string;
+  emailVerified?: boolean;
+  id?: string;
+  updatedAt?: string;
+  __v?: number;
 }
 
 const authAPI = {

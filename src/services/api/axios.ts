@@ -1,4 +1,4 @@
-import axios, { AxiosError, AxiosInstance, AxiosResponse } from "axios";
+import axios, { AxiosError, type AxiosInstance, type AxiosResponse } from "axios";
 import { authStore } from "../../store/authStore";
 
 // Create axios instance with base config

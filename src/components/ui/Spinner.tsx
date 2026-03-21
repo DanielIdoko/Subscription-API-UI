@@ -1,5 +1,4 @@
 import React from "react";
-import { FaSpinner } from "react-icons/fa6";
 
 interface SpinnerProps {
   size?: "sm" | "md" | "lg";

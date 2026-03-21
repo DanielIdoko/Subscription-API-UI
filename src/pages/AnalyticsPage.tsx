@@ -90,7 +90,7 @@ export const AnalyticsPage: React.FC = () => {
                       tickFormatter={(value: number) => `$${value}`}
                     />
                     <Tooltip
-                      formatter={(value: number) => [`$${value}`, 'Amount']}
+                      formatter={(value: number | undefined) => value !== undefined ? [`$${value}`, 'Amount'] : ['N/A', 'Amount']}
                       labelStyle={{ color: '#374151' }}
                       contentStyle={{
                         backgroundColor: '#ffffff',

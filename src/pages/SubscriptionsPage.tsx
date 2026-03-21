@@ -16,7 +16,6 @@ export const SubscriptionsPage: React.FC = () => {
   const {
     subscriptions,
     isLoading,
-    error,
     fetchSubscriptions,
     createSubscription,
     updateSubscription,

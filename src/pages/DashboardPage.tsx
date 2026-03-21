@@ -59,28 +59,28 @@ export const DashboardPage: React.FC = () => {
           <StatsCard
             icon={<FiCreditCard />}
             label="Monthly Spend"
-            value={`$${stats?.data.totalMonthlySpend || 0}`}
+            value={`$${stats?.totalMonthlySpend || 0}`}
             change="+5% from last month"
             changeType="neutral"
           />
           <StatsCard
             icon={<FiTrendingUp />}
             label="Active Subscriptions"
-            value={stats?.data.activeSubscriptionsCount || 0}
-            change={`${stats?.data.activeSubscriptionsCount! || 0} active today`}
+            value={stats?.activeSubscriptionsCount || 0}
+            change={`${stats?.activeSubscriptionsCount! || 0} active today`}
             changeType="positive"
           />
           <StatsCard
             icon={<FiClock />}
             label="Upcoming Renewals"
-            value={[stats?.data.upcomingRenewals || 0]}
+            value={stats?.upcomingRenewals?.length || 0}
             change="Next 7 days"
             changeType="neutral"
           />
           <StatsCard
             icon={<FiAlertCircle />}
             label="Categories"
-            value={stats?.data.categoryBreakdown.length || 0}
+            value={stats?.categoryBreakdown.length || 0}
             change="Well organized"
             changeType="positive"
           />
@@ -146,7 +146,7 @@ export const DashboardPage: React.FC = () => {
             <div className="space-y-4">
               {recentSubscriptions.map((sub) => (
                 <SubscriptionCard
-                  key={sub.id}
+                  key={sub._id}
                   subscription={sub}
                   onEdit={() => navigate(`/subscriptions?edit=${sub._id}`)}
                   onDelete={() => navigate(`/subscriptions?delete=${sub._id}`)}

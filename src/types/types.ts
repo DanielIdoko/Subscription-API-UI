@@ -28,13 +28,11 @@ export interface CategoryBreakdown {
 }
 
 export interface DashboardStats {
-  data: {
-    totalMonthlySpend: number;
-    totalYearlySpend: number;
-    activeSubscriptionsCount: number;
-    upcomingRenewals: [];
-    categoryBreakdown: CategoryBreakdown[];
-  };
+  totalMonthlySpend: number;
+  totalYearlySpend: number;
+  activeSubscriptionsCount: number;
+  upcomingRenewals: [];
+  categoryBreakdown: CategoryBreakdown[];
 }
 
 export interface MonthlyData {
