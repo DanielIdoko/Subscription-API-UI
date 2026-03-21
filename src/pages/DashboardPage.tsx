@@ -87,14 +87,14 @@ export const DashboardPage: React.FC = () => {
         </div>
 
         {/* Category Breakdown */}
-        {stats && stats.data.categoryBreakdown?.length > 0 && (
+        {stats && stats.categoryBreakdown?.length > 0 && (
           <Card>
             <CardHeader>
               <CardTitle>Spending by Category</CardTitle>
             </CardHeader>
             <CardContent>
               <div className="space-y-4">
-                {stats.data.categoryBreakdown.map((category) => (
+                {stats.categoryBreakdown.map((category) => (
                   <div
                     key={category.category}
                     className="flex items-center justify-between"
@@ -109,7 +109,7 @@ export const DashboardPage: React.FC = () => {
                           style={{
                             width: `${
                               (category.total /
-                                (stats.data.totalMonthlySpend || 1)) *
+                                (stats.totalMonthlySpend || 1)) *
                               100
                             }%`,
                           }}
