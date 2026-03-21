@@ -89,7 +89,7 @@ export const AnalyticsPage: React.FC = () => {
                       tick={{ fontSize: 12, fill: '#6b7280' }}
                       tickFormatter={(value: number) => `$${value}`}
                     />
-                    <Tooltip
+                    {/* <Tooltip
                       formatter={(value: number | undefined) => value !== undefined ? [`$${value}`, 'Amount'] : ['N/A', 'Amount']}
                       labelStyle={{ color: '#374151' }}
                       contentStyle={{
@@ -98,7 +98,7 @@ export const AnalyticsPage: React.FC = () => {
                         borderRadius: '8px',
                         boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)',
                       }}
-                    />
+                    /> */}
                     <Bar
                       dataKey="total"
                       fill="url(#colorGradient)"

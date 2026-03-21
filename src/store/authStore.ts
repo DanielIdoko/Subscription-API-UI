@@ -79,7 +79,7 @@ export const authStore = create<AuthState>()(
         try {
           set({ isLoading: true, error: null });
           const { data } = await authAPI.getCurrentUser();
-          set({ user: data, isLoading: false });
+          set({ user: { data }, isLoading: false });
         } catch (err: any) {
           const errorMessage =
             err.response?.data?.message || "Failed to fetch user. Try again";

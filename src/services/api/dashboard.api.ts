@@ -7,8 +7,9 @@ export interface CategoryBreakdown {
 
 export interface DashboardStats {
   totalMonthlySpend: number;
-  activeSubscriptions: number;
-  upcomingRenewals: number;
+  totalYearlySpend: number;
+  activeSubscriptionsCount: number;
+  upcomingRenewals: [];
   categoryBreakdown: CategoryBreakdown[];
 }
 

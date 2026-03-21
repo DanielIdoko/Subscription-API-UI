@@ -1,4 +1,4 @@
-import axiosInstance from './axios';
+import axiosInstance from "./axios";
 
 export interface RegisterPayload {
   name: string;
@@ -16,9 +16,11 @@ export interface AuthResponse {
     accessToken: string;
   };
   user: {
-    _id: string;
-    name: string;
-    email: string;
+    data: {
+      _id: string;
+      name: string;
+      email: string;
+    };
   };
 }
 
@@ -35,13 +37,12 @@ export interface UserResponse {
 
 const authAPI = {
   register: (payload: RegisterPayload) =>
-    axiosInstance.post<AuthResponse>('/auth/register', payload),
+    axiosInstance.post<AuthResponse>("/auth/register", payload),
 
   login: (payload: LoginPayload) =>
-    axiosInstance.post<AuthResponse>('/auth/login', payload),
+    axiosInstance.post<AuthResponse>("/auth/login", payload),
 
-  getCurrentUser: () =>
-    axiosInstance.get<UserResponse>('/users/profile'),
+  getCurrentUser: () => axiosInstance.get<UserResponse>("/users/profile"),
 };
 
 export default authAPI;
