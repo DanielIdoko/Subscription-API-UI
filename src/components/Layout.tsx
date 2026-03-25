@@ -27,7 +27,7 @@ export const Header: React.FC<HeaderProps> = ({ title, greeting = true }) => {
           {greeting ? (
             <div>
               <h1 className="text-md font-inter text-gray-900 dark:text-gray-100">
-                {greetingText}, {user?.data.name}
+                {greetingText}, {user?.data?.name || "Guest"}
               </h1>
               <p className="text-sm font-sans text-gray-600 dark:text-gray-300">
                 {new Date().toLocaleDateString("en-US", {

@@ -23,17 +23,23 @@ import { FiShield } from "react-icons/fi";
 export const ProfilePage: React.FC = () => {
   const { user, fetchCurrentUser } = authStore();
   const { showToast } = useToast();
-  const [name, setName] = useState(user?.data.name || "");
+  const [name, setName] = useState(user?.data?.name || "");
   const [isLoading, setIsLoading] = useState(false);
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState("");
   const [copiedField, setCopiedField] = useState<string | null>(null);
 
-  const emailVerified = user?.data.emailVerified || false;
+  const emailVerified = user?.data?.emailVerified || false;
 
   useEffect(() => {
     if (!user) fetchCurrentUser();
-  }, []);
+  }, [user, fetchCurrentUser]);
+
+  useEffect(() => {
+    if (user?.data?.name) {
+      setName(user.data.name);
+    }
+  }, [user]);
 
   // Handler for updating profile
   const handleUpdateProfile = async (e: React.FormEvent) => {
