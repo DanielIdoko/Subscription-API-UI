@@ -25,7 +25,7 @@ import { authStore } from "../store/authStore";
 
 export const DashboardPage: React.FC = () => {
   const navigate = useNavigate();
-  const { user, fetchCurrentUser } = authStore();
+  const { fetchCurrentUser } = authStore();
   const { stats, isLoading: statsLoading, fetchStats } = dashboardStore();
   const {
     subscriptions,
@@ -39,7 +39,7 @@ export const DashboardPage: React.FC = () => {
   }, [fetchStats, fetchSubscriptions]);
 
   useEffect(() => {
-    if (!user) fetchCurrentUser();
+    fetchCurrentUser();
   }, []);
 
   const recentSubscriptions = subscriptions.slice(0, 5);
