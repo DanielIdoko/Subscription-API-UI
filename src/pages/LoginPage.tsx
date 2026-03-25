@@ -11,7 +11,8 @@ import { Input } from "../components/ui/Input";
 import { Button } from "../components/ui/Button";
 import { authStore } from "../store/authStore";
 import { useToast } from "../hooks/useToast";
-import { FaArrowRight } from "react-icons/fa";
+// import { FaArrowRight } from "react-icons/fa";
+import { FiChevronRight } from "react-icons/fi";
 
 export const LoginPage: React.FC = () => {
   const navigate = useNavigate();
@@ -47,8 +48,8 @@ export const LoginPage: React.FC = () => {
 
       // Show email verification reminder
       showToast(
-        "Welcome back! Please make sure your email is verified. Check your inbox if you haven't verified yet.",
-        "info",
+        "User successfuly logged in!",
+        "success",
         4000
       );
 
@@ -105,7 +106,7 @@ export const LoginPage: React.FC = () => {
               isLoading={isLoading}
               className="w-full"
             >
-              Sign In <FaArrowRight size={13} color="#fff" />
+              Sign In <FiChevronRight size={13} color="#fff" />
             </Button>
           </form>
 

@@ -11,7 +11,8 @@ import { Input } from "../components/ui/Input";
 import { Button } from "../components/ui/Button";
 import { authStore } from "../store/authStore";
 import { useToast } from "../hooks/useToast";
-import { FaArrowRight } from "react-icons/fa";
+// import { FaArrowRight } from "react-icons/fa";
+import { FiChevronRight } from "react-icons/fi";
 
 export const SignupPage: React.FC = () => {
   const navigate = useNavigate();
@@ -43,7 +44,7 @@ export const SignupPage: React.FC = () => {
     }
 
     if (!formData.email) {
-      newErrors.email = "Email is required";
+      newErrors.email = "Email address is required";
     } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
       newErrors.email = "Invalid email format";
     }
@@ -71,14 +72,10 @@ export const SignupPage: React.FC = () => {
 
     try {
       await register(formData.name, formData.email, formData.password);
-      
+
       // Show email verification toast
-      showToast(
-        "Account created! Please check your email to verify your account. A verification link has been sent to your inbox.",
-        "info",
-        5000
-      );
-      
+      showToast("User account successfully created!", "success", 4000);
+
       // Navigate after a short delay to let user see the toast
       setTimeout(() => {
         navigate("/dashboard");
@@ -156,7 +153,7 @@ export const SignupPage: React.FC = () => {
               isLoading={isLoading}
               className="w-full gap-1 cursor-pointer"
             >
-              Get started <FaArrowRight size={13} color="#fff" />
+              Get started <FiChevronRight size={13} color="#fff" />
             </Button>
           </form>
 
