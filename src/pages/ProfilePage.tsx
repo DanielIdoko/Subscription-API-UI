@@ -32,7 +32,7 @@ export const ProfilePage: React.FC = () => {
   const emailVerified = user?.data.emailVerified || false;
 
   useEffect(() => {
-    fetchCurrentUser();
+    if (!user) fetchCurrentUser();
   }, []);
 
   // Handler for updating profile
@@ -186,9 +186,7 @@ export const ProfilePage: React.FC = () => {
               {error && (
                 <div className="p-4 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg flex items-start gap-3">
                   <FaTimesCircle className="w-5 h-5 text-red-600 dark:text-red-400 shrink-0 mt-0.5" />
-                  <p className="text-sm text-red-700 dark:text-red-300">
-                    {error}
-                  </p>
+                  <p className="text-sm text-red-700 dark:text-red-300">{error}</p>
                 </div>
               )}
 
