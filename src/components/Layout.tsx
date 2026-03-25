@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { FiBell, FiMoon, FiSun } from "react-icons/fi";
 import { authStore } from "../store/authStore";
 import { themeStore } from "../store/themeStore";
@@ -10,11 +10,15 @@ interface HeaderProps {
 }
 
 export const Header: React.FC<HeaderProps> = ({ title, greeting = true }) => {
-  const { user } = authStore();
+  const { user, fetchCurrentUser } = authStore();
   const { theme, toggleTheme } = themeStore();
   const hour = new Date().getHours();
   const greetingText =
     hour < 12 ? "Good morning" : hour < 18 ? "Good afternoon" : "Good evening";
+
+  useEffect(() => {
+    fetchCurrentUser();
+  }, []);
 
   return (
     <header className="fixed top-0 right-0 left-0 pl-18 bg-white dark:bg-slate-900 border-b border-gray-200 dark:border-slate-700 z-30 transition-all duration-300">
@@ -47,7 +51,7 @@ export const Header: React.FC<HeaderProps> = ({ title, greeting = true }) => {
             className="p-2 rounded-full border border-gray-200 dark:border-slate-700 bg-gray-100 dark:bg-slate-800 hover:bg-gray-200 dark:hover:bg-slate-700 transition-colors"
             aria-label="Toggle theme"
           >
-            {theme === 'dark' ? (
+            {theme === "dark" ? (
               <FiSun className="w-5 h-5 text-yellow-400" />
             ) : (
               <FiMoon className="w-5 h-5 text-gray-700" />
