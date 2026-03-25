@@ -153,7 +153,7 @@ export const SignupPage: React.FC = () => {
               isLoading={isLoading}
               className="w-full gap-1 cursor-pointer"
             >
-              Get started <FiChevronRight size={13} color="#fff" />
+              Get started <FiChevronRight size={15} color="#fff" />
             </Button>
           </form>
 

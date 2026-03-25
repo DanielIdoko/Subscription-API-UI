@@ -106,7 +106,7 @@ export const LoginPage: React.FC = () => {
               isLoading={isLoading}
               className="w-full"
             >
-              Sign In <FiChevronRight size={13} color="#fff" />
+              Sign In <FiChevronRight size={15} color="#fff" />
             </Button>
           </form>
 
