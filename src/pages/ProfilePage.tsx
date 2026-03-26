@@ -32,7 +32,7 @@ export const ProfilePage: React.FC = () => {
   const emailVerified = user?.data?.emailVerified || false;
 
   useEffect(() => {
-    if (!user) fetchCurrentUser();
+    if (!user?.data.name) fetchCurrentUser();
   }, [user, fetchCurrentUser]);
 
   useEffect(() => {

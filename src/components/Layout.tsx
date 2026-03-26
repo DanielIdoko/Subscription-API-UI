@@ -17,7 +17,7 @@ export const Header: React.FC<HeaderProps> = ({ title, greeting = true }) => {
     hour < 12 ? "Good morning" : hour < 18 ? "Good afternoon" : "Good evening";
 
   useEffect(() => {
-    if (!user) fetchCurrentUser();
+    if (!user?.data.name) fetchCurrentUser();
   }, []);
 
   return (

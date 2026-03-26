@@ -58,10 +58,11 @@ export const authStore = create<AuthState>()(
 
           localStorage.setItem("auth_token", data.data.accessToken);
 
-          const normalizedUser = normalizeUser(data.user ?? data.data?.user ?? data.data);
+          console.log(data);
+          // const normalizedUser = normalizeUser(data.user ?? data.data?.user);
 
           set({
-            user: normalizedUser,
+            user: data.user,
             token: data.data.accessToken,
             isLoading: false,
           });
@@ -81,10 +82,10 @@ export const authStore = create<AuthState>()(
 
           localStorage.setItem("auth_token", data.data.accessToken);
 
-          const normalizedUser = normalizeUser(data.user ?? data.data?.user ?? data.data);
+          // const normalizedUser = normalizeUser(data.user ?? data.data? ?? data.data);
 
           set({
-            user: normalizedUser,
+            user: data.user,
             token: data.data.accessToken,
             isLoading: false,
           });
@@ -107,10 +108,10 @@ export const authStore = create<AuthState>()(
           const { data } = await authAPI.getCurrentUser();
 
           // /users/profile may return user object directly or as { data: user }
-          const serverUser = data?.data ?? data;
-          const normalizedUser = normalizeUser(serverUser);
+          // const serverUser = data?.data ?? data;
+          // const normalizedUser = normalizeUser(serverUser);
 
-          set({ user: normalizedUser, isLoading: false });
+            set({ user: data, isLoading: false });
         } catch (err: any) {
           const errorMessage =
             err.response?.data?.message || "Failed to fetch user. Try again";

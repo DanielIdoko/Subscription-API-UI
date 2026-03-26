@@ -44,6 +44,7 @@ export const LoginPage: React.FC = () => {
     if (!validateForm()) return;
 
     try {
+      console.log(formData.email, formData.password);
       await login(formData.email, formData.password);
 
       // Show email verification reminder
