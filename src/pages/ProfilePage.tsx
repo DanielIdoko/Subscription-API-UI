@@ -23,20 +23,20 @@ import { FiShield } from "react-icons/fi";
 export const ProfilePage: React.FC = () => {
   const { user, fetchCurrentUser } = authStore();
   const { showToast } = useToast();
-  const [name, setName] = useState(user?.data?.name || "");
+  const [name, setName] = useState(user?.name || "");
   const [isLoading, setIsLoading] = useState(false);
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState("");
   const [copiedField, setCopiedField] = useState<string | null>(null);
 
-  const emailVerified = user?.data?.emailVerified || false;
+  const emailVerified = user?.emailVerified || false;
 
   useEffect(() => {
       if (user == null) fetchCurrentUser();
   }, [user, fetchCurrentUser]);
 
   useEffect(() => {
-    if (user?.data?.name) {
+    if (user?.name) {
       setName(user.data.name);
     }
   }, [user]);
@@ -149,7 +149,7 @@ export const ProfilePage: React.FC = () => {
               {/* Avatar Section */}
               <div className="flex items-center gap-6 pb-6 border-b border-gray-200">
                 <div className="w-20 h-20 rounded-full bg-gradient-to-br from-blue-500 to-blue-600 flex items-center justify-center text-white font-semibold text-3xl shadow-lg">
-                  {user?.data?.name?.slice(0, 1)}
+                  {user?.name?.slice(0, 1)}
                 </div>
                 <div className="flex-1">
                   <p className="text-sm text-gray-500 dark:text-gray-300 font-medium mb-1">
