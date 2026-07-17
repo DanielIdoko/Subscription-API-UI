@@ -72,7 +72,7 @@ export const LoginPage: React.FC = () => {
         <CardContent>
           <form onSubmit={handleSubmit} className="space-y-4">
             <Input
-              label="Email Address*"
+              label="Email Address"
               type="email-address"
               placeholder="Enter your email address"
               value={formData.email}
@@ -83,7 +83,7 @@ export const LoginPage: React.FC = () => {
             />
 
             <Input
-              label="Password*"
+              label="Password"
               type="password"
               placeholder="Enter your password"
               value={formData.password}
@@ -116,7 +116,7 @@ export const LoginPage: React.FC = () => {
               Don't have an account?{" "}
               <button
                 onClick={() => navigate("/auth/signup")}
-                className="text-blue-600 hover:text-blue-700 font-medium cursor-pointer underline"
+                className="text-blue-600 hover:text-blue-700 font-medium cursor-pointer"
               >
                 Sign up
               </button>

@@ -162,7 +162,7 @@ export const SignupPage: React.FC = () => {
               Already have an account?{" "}
               <button
                 onClick={() => navigate("/auth/login")}
-                className="text-blue-600 hover:text-blue-700 font-medium cursor-pointer underline"
+                className="text-blue-600 hover:text-blue-700 font-medium cursor-pointer"
               >
                 Sign in
               </button>

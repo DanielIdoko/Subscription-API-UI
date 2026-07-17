@@ -1,14 +1,12 @@
 export interface User {
-  data: {
-    createdAt?: string;
-    email: string;
-    emailVerified?: boolean;
-    id?: string;
-    name: string;
-    updatedAt?: string;
-    __v?: number;
-    _id: string;
-  };
+  createdAt?: string;
+  email: string;
+  emailVerified?: boolean;
+  id?: string;
+  name: string;
+  updatedAt?: string;
+  __v?: number;
+  _id: string;
 }
 
 export interface Subscription {

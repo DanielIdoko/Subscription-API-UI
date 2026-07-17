@@ -3,31 +3,6 @@ import { persist } from "zustand/middleware";
 import type { User } from "../types/types";
 import authAPI from "../services/api/auth.api";
 
-const normalizeUser = (raw: any): User | null => {
-  if (!raw) return null;
-
-  // if it already matches User shape
-  if (raw.data && raw.data.name) {
-    return raw as User;
-  }
-
-  // if raw is user object with fields directly
-  if (raw.name) {
-    return { data: raw };
-  }
-
-  // if wrapped in data again (common payload: { data: { user: ... } })
-  if (raw.data && raw.data.data && raw.data.data.name) {
-    return { data: raw.data.data };
-  }
-
-  // if raw is { user: { ... } }
-  if (raw.user && raw.user.data) {
-    return { data: raw.user.data };
-  }
-
-  return null;
-};
 
 interface AuthState {
   user: User | null;

@@ -16,11 +16,9 @@ export interface AuthResponse {
     accessToken: string;
   };
   user: {
-    data: {
-      _id: string;
-      name: string;
-      email: string;
-    };
+    _id: string;
+    name: string;
+    email: string;
   };
 }
 

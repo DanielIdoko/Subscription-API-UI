@@ -1,29 +1,31 @@
-import React, { lazy, Suspense } from 'react';
+import React, { lazy, Suspense } from "react";
 import {
   createBrowserRouter,
   createRoutesFromElements,
   Route,
   RouterProvider,
-} from 'react-router';
-import { ProtectedRoute } from '../components/ProtectedRoute';
-import { Spinner } from '../components/ui/Spinner';
-import { ToastContainer } from '../components/ToastContainer';
+} from "react-router";
+import { ProtectedRoute } from "../components/ProtectedRoute";
+import { Spinner } from "../components/ui/Spinner";
+import { ToastContainer } from "../components/ToastContainer";
 
 // Lazy load pages
-const LoginPage = lazy(() => import('../pages/LoginPage'));
-const SignupPage = lazy(() => import('../pages/SignupPage'));
-const DashboardPage = lazy(() => import('../pages/DashboardPage'));
-const SubscriptionsPage = lazy(() => import('../pages/SubscriptionsPage'));
-const AnalyticsPage = lazy(() => import('../pages/AnalyticsPage'));
-const ProfilePage = lazy(() => import('../pages/ProfilePage'));
-const SettingsPage = lazy(() => import('../pages/SettingsPage'));
-const NotificationPage = lazy(() => import('../pages/NotificationPage'));
+const LoginPage = lazy(() => import("../pages/LoginPage"));
+const SignupPage = lazy(() => import("../pages/SignupPage"));
+const DashboardPage = lazy(() => import("../pages/DashboardPage"));
+const SubscriptionsPage = lazy(() => import("../pages/SubscriptionsPage"));
+const AnalyticsPage = lazy(() => import("../pages/AnalyticsPage"));
+const ProfilePage = lazy(() => import("../pages/ProfilePage"));
+const SettingsPage = lazy(() => import("../pages/SettingsPage"));
+const NotificationPage = lazy(() => import("../pages/NotificationPage"));
 
 const LoadingFallback = () => (
   <div className="min-h-screen flex items-center justify-center bg-gray-50">
-    <Spinner size="lg" />
+    <Spinner size="md" />
   </div>
 );
+
+
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -33,9 +35,9 @@ const router = createBrowserRouter(
       <Route path="/auth/signup" element={<SignupPage />} />
 
       {/* Protected Routes */}
-      <Route element={<ProtectedRoute />}>
+      <Route path="/" element={<ProtectedRoute />}>
         <Route
-          path="/dashboard"
+          path="dashboard"
           element={
             <Suspense fallback={<LoadingFallback />}>
               <DashboardPage />
@@ -43,7 +45,7 @@ const router = createBrowserRouter(
           }
         />
         <Route
-          path="/subscriptions"
+          path="subscriptions"
           element={
             <Suspense fallback={<LoadingFallback />}>
               <SubscriptionsPage />
@@ -51,7 +53,7 @@ const router = createBrowserRouter(
           }
         />
         <Route
-          path="/analytics"
+          path="analytics"
           element={
             <Suspense fallback={<LoadingFallback />}>
               <AnalyticsPage />
@@ -59,7 +61,7 @@ const router = createBrowserRouter(
           }
         />
         <Route
-          path="/profile"
+          path="profile"
           element={
             <Suspense fallback={<LoadingFallback />}>
               <ProfilePage />
@@ -67,7 +69,7 @@ const router = createBrowserRouter(
           }
         />
         <Route
-          path="/settings"
+          path="settings"
           element={
             <Suspense fallback={<LoadingFallback />}>
               <SettingsPage />
@@ -75,7 +77,7 @@ const router = createBrowserRouter(
           }
         />
         <Route
-          path="/notifications"
+          path="notifications"
           element={
             <Suspense fallback={<LoadingFallback />}>
               <NotificationPage />
@@ -84,7 +86,7 @@ const router = createBrowserRouter(
         />
       </Route>
 
-      {/* Redirect root to dashboard */}
+      Redirect root to dashboard
       <Route path="/" element={<ProtectedRoute />}>
         <Route
           index
@@ -95,8 +97,9 @@ const router = createBrowserRouter(
           }
         />
       </Route>
+      
     </Route>
-  )
+  ),
 );
 
 export const RootNavigation: React.FC = () => {
